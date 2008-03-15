@@ -4,7 +4,7 @@ describe Customer do
   before(:each) do
     @valid_attributes = {
       :name => "Vargthon",
-      #:email => "vargthon@gmail.com",
+      :email => "vargthon@gmail.com",
       :phone => "82 88491406",
       :mobile => "82 88491406",
       :address => "Deputado jose lages"
@@ -12,13 +12,14 @@ describe Customer do
     @customer = Customer.new
   end
 
-  it "should have a name" do
-    @customer.attributes = @valid_attributes.except(:name)
-    @customer.save
-    @customer.should have(1).error_on(:name)
-    @customer.name = @valid_attributes
-    @customer.save 
+  it "should be valid with the right attributes" do
+    @customer.attributes = @valid_attributes
     @customer.should be_valid
+  end
+
+  it "should have errors without a name" do
+    @customer.attributes = @valid_attributes.except(:name)
+    @customer.should have(1).error_on(:name)
   end
   
   it "should have valid address" do
@@ -35,14 +36,6 @@ describe Customer do
     @customer.email = 'fiulano@example.com'
     @customer.save
     @customer.should have(:no).error_on(:email)
-  end
-  
-  it "should have a city" do
-    @customer.save
-    @customer.should have(1).error_on(:city)
-    @customer.city = 'Acme City'
-    @customer.save
-    @customer.should have(:no).error_on(:city)
   end
   
   it "should have a valid phone number" do
