@@ -4,7 +4,7 @@ describe Book do
   before(:each) do
     @valid_attributes = {
       :title => "My Book Title",
-      :isbn => "0131016490",
+      :isbn => "9751582701709",
       :released_at => Date.new,
       :edition => 1
     }
