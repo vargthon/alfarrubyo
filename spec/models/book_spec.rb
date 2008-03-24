@@ -15,7 +15,7 @@ describe Book do
     @book.attributes = @valid_attributes
     @book.should be_valid
   end
-  
+    
   it "should have errors without a title" do
     @book.attributes = @valid_attributes.except(:title)
     @book.should have(1).error_on(:title)
@@ -23,13 +23,15 @@ describe Book do
   
   it "should have errors without an ISBN" do
     @book.attributes = @valid_attributes.except(:isbn)
-    @book.should have(1).error_on(:isbn)
+    @book.should have(2).errors_on(:isbn)
   end
   
   it "should have errors on ivalid ISBN" do
     @book.attributes = @valid_attributes.except(:isbn)
     @book.isbn = "1NV71D158N"
-    @book.isbn.should have(1).error_on(:isbn)
+    @book.isbn.should have(10).errors_on(:isbn)
+    @book.isbn = "1NV71D158N111"
+    @book.isbn.should have(13).errors_on(:isbn)
   end
   
   it "should have errors on negative edition numbers" do
@@ -40,8 +42,12 @@ describe Book do
   
   it "should have a unique ISBN"
   
-  it "should belong to a publisher"
+  it "should belong to a category" do
+    book_category = BookCategory.new
+    @book.category = book_category
+    @book.category.should eql(book_category)
+  end
   
-  it "should belong to a category"
+  it "should belong to a publisher"
   
 end

@@ -8,12 +8,12 @@ describe Author do
     @author = Author.new
   end
 
-  it "should be valid" do
+  it "should be valid with right attributes" do
     @author.attributes = @valid_attributes
     @author.should be_valid
   end
   
-  it "should require a name" do
+  it "should have errors without a name" do
     @author.save
     @author.should have(1).error_on(:name)
   end
